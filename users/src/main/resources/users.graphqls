@@ -1,0 +1,45 @@
+extend type Query{
+    users: [Users]
+}
+
+extend type Mutation {
+    createUsers(Users:UsersInput):Users
+}
+
+type Users{
+    _id:Int
+    name:String
+    identification:String
+    password:String
+    career:String
+    cellPhoneNumber:String
+    dateAdmission:String
+    email:String
+    hoursWorked:String
+    projects:[Int]
+    roles:[Roles]
+}
+
+type Roles{
+    _idRole:Int
+    name:String
+}
+
+input UsersInput{
+    _id:Int !
+    name:String !
+    identification:String !
+    password:String !
+    career:String !
+    cellPhoneNumber:String !
+    dateAdmission:String !
+    email:String !
+    hoursWorked:String !
+    projects:[Int !] !
+    roles:[RolesInput !] !
+}
+
+input RolesInput{
+    _idRole:Int !
+    name:String !
+}
