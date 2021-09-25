@@ -7,7 +7,7 @@ extend type Mutation {
 }
 
 type Users{
-    _id:Int
+    _id:ID
     name:String
     identification:String
     password:String
@@ -16,7 +16,7 @@ type Users{
     dateAdmission:String
     email:String
     hoursWorked:String
-    projects:[Int]
+    projects:[ID]
     roles:[Roles]
 }
 
@@ -26,7 +26,6 @@ type Roles{
 }
 
 input UsersInput{
-    _id:Int !
     name:String !
     identification:String !
     password:String !
@@ -35,7 +34,7 @@ input UsersInput{
     dateAdmission:String !
     email:String !
     hoursWorked:String !
-    projects:[Int !] !
+    projects:[ID !] !
     roles:[RolesInput !] !
 }
 

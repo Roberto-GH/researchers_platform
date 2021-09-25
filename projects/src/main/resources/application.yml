@@ -3,7 +3,6 @@ spring:
     mongodb:
       uri: mongodb+srv://mongo1:projectWTD@cluster0.x1xtc.mongodb.net
       database: projectWTD
-      #host: localhost
       #port: 27017
 
 graphql:
@@ -21,4 +20,4 @@ graphiql:
   mapping: /graphiql
 
 server:
-  port : 8080
+  port : 9090

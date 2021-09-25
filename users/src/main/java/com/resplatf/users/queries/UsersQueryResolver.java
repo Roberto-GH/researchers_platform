@@ -1,6 +1,6 @@
 package com.resplatf.users.queries;
 
-import com.resplatf.users.models.UsersModel;
+import com.resplatf.users.models.user.UserModel;
 import com.resplatf.users.repositories.UsersRepository;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class UsersQueryResolver implements GraphQLQueryResolver {
    private UsersRepository usersRepository;
 
 
-   public List<UsersModel> users(){
+   public List<UserModel> users(){
       return usersRepository.findAll();
    }
 

@@ -1,17 +1,20 @@
-package com.resplatf.users.models;
+package com.resplatf.users.models.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsersModel {
+@Document(collection="users")
+public class UserModel {
 
-   private Long _id;
+   private ObjectId _id;
    private String name;
    private String identification;
    private String password;
@@ -20,7 +23,7 @@ public class UsersModel {
    private String dateAdmission;
    private String email;
    private int hoursWorked;
-   private ArrayList<Long> projects;
+   private ArrayList<ObjectId> projects;
    private ArrayList<Roles> roles;
 
 }

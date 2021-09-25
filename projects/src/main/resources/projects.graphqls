@@ -1,0 +1,80 @@
+extend type Query{
+    projects: [Project]
+}
+
+extend type Mutation {
+    createProject(Project:ProjectInput):Project
+}
+
+type Project{
+    _id:ID
+    name:String
+    description:String
+    generalObjectives:String
+    specificObjectives:[String]
+    totalBudget:Int
+    initialDate:String
+    finalDate:String
+    currentStage:String
+    progress:[Progress]
+    type:Type
+    status:Status
+    users:[UsersProject]
+}
+
+type Type{
+    _id :Int
+    name :String
+}
+
+type Status{
+    _id :Int
+    name :String
+}
+
+type UsersProject{
+    _idUser:ID
+}
+
+type Progress{
+    stage:String
+    notes:String
+    stageStartDate:String
+}
+
+input ProjectInput{
+    _id:ID
+    name:String
+    description:String
+    generalObjectives:String
+    specificObjectives:[String]
+    totalBudget:Int
+    initialDate:String
+    finalDate:String
+    currentStage:String
+    progress:[ProgressInput]
+    type:TypeInput
+    status:StatusInput
+    users:[UsersProjectInput]
+}
+
+input TypeInput{
+    _id :Int
+    name :String
+}
+
+input StatusInput{
+    _id :Int
+    name :String
+}
+
+input UsersProjectInput{
+    _idUser:ID
+}
+
+input ProgressInput{
+    stage:String
+    notes:String
+    stageStartDate:String
+}
+

@@ -1,15 +1,15 @@
-package com.resplatf.users.models;
+package com.resplatf.projects.models.project;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Roles {
+public class Users {
 
-   private int _idRole;
-   private String name;
+   private ObjectId _idUser;
 
 }
