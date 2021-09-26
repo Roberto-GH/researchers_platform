@@ -5,6 +5,8 @@ spring:
       database: projectWTD
       #host: localhost
       #port: 27017
+  application:
+    name: users-service
 
 graphql:
   servlet:

@@ -4,6 +4,8 @@ spring:
       uri: mongodb+srv://mongo1:projectWTD@cluster0.x1xtc.mongodb.net
       database: projectWTD
       #port: 27017
+  application:
+    name: projects-service
 
 graphql:
   servlet:
