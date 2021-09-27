@@ -11,7 +11,7 @@ spring:
 graphql:
   servlet:
     enabled: true
-    mapping: /graphql
+    mapping: /users
     cors:
       allowed-origins: true
       allow-credentials: true
@@ -23,7 +23,7 @@ graphiql:
   mapping: /graphiql
 
 server:
-  port : 9080
+  port : 8070
 
 eureka:
   client:

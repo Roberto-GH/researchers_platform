@@ -11,7 +11,7 @@ spring:
 graphql:
   servlet:
     enabled: true
-    mapping: /graphql
+    mapping: /projects
     cors:
       allowed-origins: true
       allow-credentials: true
