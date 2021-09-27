@@ -1,17 +1,8 @@
-server:
-  port: 8081
-
 spring:
+  application:
+    name: registry-service
   cloud:
     config:
-      server:
-        git:
-          uri: https://github.com/Roberto-GH/researchers_platform.git
-          searchPaths: config-data
-          username: ${GIT_USER}
-          password: ${GIT_PASSWORD}
-          default-label: main
-  security:
-    user:
-      name: root
+      uri: http://localhost:8081
+      username: root
       password: secret
