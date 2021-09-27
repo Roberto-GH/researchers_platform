@@ -1,8 +1,8 @@
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://mongo1:projectWTD@cluster0.x1xtc.mongodb.net
-      database: projectWTD
+      uri: ${MONGODB_URI}
+      database: ${MONGODB_DATABASE}
       #host: localhost
       #port: 27017
   application:
