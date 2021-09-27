@@ -23,7 +23,7 @@ graphiql:
   mapping: /graphiql
 
 server:
-  port : 8080
+  port : 9080
 
 eureka:
   client:
