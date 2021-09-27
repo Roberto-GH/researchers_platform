@@ -18,6 +18,10 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	set('springCloudVersion', "2020.0.4")
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
@@ -28,6 +32,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation group: 'com.graphql-java-kickstart', name: 'graphql-spring-boot-starter', version: '11.1.0'
 	implementation group: 'com.graphql-java-kickstart', name: 'graphiql-spring-boot-starter', version: '11.1.0'
+	implementation 'org.springframework.cloud:spring-cloud-starter-config:3.0.5'
+	implementation  'org.springframework.cloud:spring-cloud-starter-bootstrap'
 }
 
 test {
