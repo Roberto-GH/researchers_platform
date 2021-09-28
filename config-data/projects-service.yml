@@ -15,6 +15,7 @@ graphql:
     cors:
       allowed-origins: true
       allow-credentials: true
+      allowed-methods: GET, HEAD, POST
   tools:
     schema-location-pattern: "**/*.graphqls"
 
