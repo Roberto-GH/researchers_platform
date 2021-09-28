@@ -21,6 +21,8 @@ graphql:
 graphiql:
   enabled: true
   mapping: /graphiql-users
+  endpoint:
+    graphql: /users
 
 server:
   port : 8070

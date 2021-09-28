@@ -21,6 +21,8 @@ graphql:
 graphiql:
   enabled: true
   mapping: /graphiql-projects
+  endpoint:
+    graphql: /projects
 
 server:
   port : 9090
