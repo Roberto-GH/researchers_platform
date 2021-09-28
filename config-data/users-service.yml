@@ -20,7 +20,7 @@ graphql:
 
 graphiql:
   enabled: true
-  mapping: /graphiql
+  mapping: /graphiql-users
 
 server:
   port : 8070
