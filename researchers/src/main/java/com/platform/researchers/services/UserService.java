@@ -1,20 +1,19 @@
 package com.platform.researchers.services;
 
-import com.platform.researchers.dtos.userdto.UserAuthDto;
-import com.platform.researchers.dtos.userdto.UserAuthResponseDto;
-import com.platform.researchers.dtos.userdto.UserDto;
-import com.platform.researchers.dtos.userdto.UserNoPassDto;
+import com.platform.researchers.dtos.userdto.UserAuthRequestDto;
+import com.platform.researchers.dtos.userdto.UserRequestDto;
+import com.platform.researchers.dtos.userdto.UserResponseDto;
 
 import java.util.List;
 
 public interface UserService {
 
-   public List<UserNoPassDto> findAll();
+   public List<UserResponseDto> findAll();
 
-   public UserNoPassDto findById(String _id);
+   public UserResponseDto findById(String _id);
 
-   public UserAuthResponseDto verifyAuth(UserAuthDto userAuthDto);
+   public UserResponseDto verifyAuth(UserAuthRequestDto userAuthDto);
 
-   public UserNoPassDto createUser(UserDto userDto);
+   public UserResponseDto createUser(UserRequestDto userDto);
 
 }

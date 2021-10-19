@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserNoPassDto implements Serializable {
+public class UserResponseDto implements Serializable {
 
    private String _id;
    private String name;

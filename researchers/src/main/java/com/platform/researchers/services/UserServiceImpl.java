@@ -1,9 +1,8 @@
 package com.platform.researchers.services;
 
-import com.platform.researchers.dtos.userdto.UserAuthDto;
-import com.platform.researchers.dtos.userdto.UserAuthResponseDto;
-import com.platform.researchers.dtos.userdto.UserDto;
-import com.platform.researchers.dtos.userdto.UserNoPassDto;
+import com.platform.researchers.dtos.userdto.UserAuthRequestDto;
+import com.platform.researchers.dtos.userdto.UserRequestDto;
+import com.platform.researchers.dtos.userdto.UserResponseDto;
 import com.platform.researchers.modelmappers.UserModelMapper;
 import com.platform.researchers.models.user.UserModel;
 import com.platform.researchers.repositories.UserRepository;
@@ -27,31 +26,32 @@ public class UserServiceImpl implements UserService{
 
 
    @Override
-   public List<UserNoPassDto> findAll() {
+   public List<UserResponseDto> findAll() {
       List<UserModel> userModels = userRepository.findAll();
-      List<UserNoPassDto> userDtos = userModelMapper.UserListDtoMapper(userModels);
+      List<UserResponseDto> userDtos = userModelMapper.userResponseDtoListMapper(userModels);
       return userDtos;
    }
 
 
    @Override
-   public UserNoPassDto findById(String _id) {
+   public UserResponseDto findById(String _id) {
       Optional<UserModel> userModelOptional = userRepository.findById(_id);
       UserModel userModel = userModelOptional.get();
-      UserNoPassDto userDto = userModelMapper.userNoPassMapper(userModel);
-      return userDto;
+      UserResponseDto userResponseDto = userModelMapper.userResponseDtoMapper(userModel);
+      return userResponseDto;
    }
 
 
    @Override
-   public UserAuthResponseDto verifyAuth(UserAuthDto userAuthDtoToCheck) {
-      UserModel userModel = userRepository.findByEmail(userAuthDtoToCheck.getEmail());
+   public UserResponseDto verifyAuth(UserAuthRequestDto userAuthRequestDtoToCheck) {
+      UserModel userModel = userRepository.findByEmail(userAuthRequestDtoToCheck.getEmail());
+
       if (userModel != null) {
          Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-         char[] charArrayPassword = userAuthDtoToCheck.getPassword().toCharArray();
+         char[] charArrayPassword = userAuthRequestDtoToCheck.getPassword().toCharArray();
 
          if (argon2.verify(userModel.getPassword(), charArrayPassword)) {
-            return userModelMapper.UserAuthResponseDtoMapper(userModel);
+            return userModelMapper.userResponseDtoMapper(userModel);
          }
       }
       return null;
@@ -59,17 +59,17 @@ public class UserServiceImpl implements UserService{
 
 
    @Override
-   public UserNoPassDto createUser(UserDto userDto) {
+   public UserResponseDto createUser(UserRequestDto userRequestDto) {
       Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-      char[] charArrayPassword = userDto.getPassword().toCharArray();
+      char[] charArrayPassword = userRequestDto.getPassword().toCharArray();
       String passwordHash = argon2.hash(1, 1024, 1, charArrayPassword);
 
-      UserModel userModelToCreate = userModelMapper.userModelMapper(userDto);
+      UserModel userModelToCreate = userModelMapper.userModelMapper(userRequestDto);
       userModelToCreate.setPassword(passwordHash);
 
       UserModel userModel = userRepository.save(userModelToCreate);
-      UserNoPassDto userNoPassDto = userModelMapper.userNoPassMapper(userModel);
-      return userNoPassDto;
+      UserResponseDto userResponseDto = userModelMapper.userResponseDtoMapper(userModel);
+      return userResponseDto;
    }
 
 }

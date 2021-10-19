@@ -3,3 +3,12 @@ spring:
     mongodb:
       uri: mongodb+srv://mongo1:projectWTD@cluster0.x1xtc.mongodb.net
       database: projectWTD
+
+#JWT
+#ttlMillis= hours * 3600000
+security:
+  jwt:
+    secret: secretword
+    issuer: Main
+    # 1 day session
+    ttlMillis: 86400000

@@ -1,10 +1,12 @@
 package com.platform.researchers.controllers;
 
-import com.platform.researchers.dtos.userdto.UserAuthDto;
+import com.platform.researchers.dtos.userdto.UserAuthRequestDto;
 import com.platform.researchers.dtos.userdto.UserAuthResponseDto;
-import com.platform.researchers.dtos.userdto.UserDto;
-import com.platform.researchers.dtos.userdto.UserNoPassDto;
+import com.platform.researchers.dtos.userdto.UserRequestDto;
+import com.platform.researchers.dtos.userdto.UserResponseDto;
+import com.platform.researchers.modelmappers.UserModelMapper;
 import com.platform.researchers.services.UserService;
+import com.platform.researchers.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
-@RequestMapping(UserController.API)
+@RequestMapping("/api")
 public class UserController {
 
 
@@ -29,37 +32,47 @@ public class UserController {
    @Autowired
    private UserService userService;
 
+   @Autowired
+   private UserModelMapper userModelMapper;
 
-   @GetMapping(USERS)
-   public List<UserNoPassDto> findAll(){
-      List<UserNoPassDto> userDtos = userService.findAll();
-      return userDtos;
+   @Autowired
+   private JWTUtil jwtUtil;
+
+
+   @GetMapping("/users")
+   public List<UserResponseDto> findAll(){
+      List<UserResponseDto> userResponseDtos = userService.findAll();
+      return userResponseDtos;
    }
 
 
    @GetMapping(USERS+ID_ID)
-   public UserNoPassDto findById(@PathVariable String _id) {
-      UserNoPassDto userDto = userService.findById(_id);
-      return userDto;
+   public UserResponseDto findById(@PathVariable String _id) {
+      UserResponseDto userResponseDto = userService.findById(_id);
+      return userResponseDto;
    }
 
 
    @PostMapping(USERS)
-   public UserNoPassDto createUser(@RequestBody UserDto userDto){
-      UserNoPassDto userNoPassDto = userService.createUser(userDto);
-      return userNoPassDto;
+   public UserResponseDto createUser(@RequestBody UserRequestDto userDto){
+      UserResponseDto userResponseDto = userService.createUser(userDto);
+      return userResponseDto;
    }
 
    @PostMapping(USERS+AUTH)
-   public ResponseEntity<?> varifyAuth(@RequestBody UserAuthDto userAuthDto){
-      UserAuthResponseDto userAuthResponseDto = userService.verifyAuth(userAuthDto);
+   public ResponseEntity<?> verifyAuth(@RequestBody UserAuthRequestDto userAuthDto){
+      UserResponseDto userResponseDto = userService.verifyAuth(userAuthDto);
 
-      if (userAuthResponseDto == null){
+      if (Objects.isNull(userResponseDto)){
          Map<String, String> jsonResponse = new HashMap<>();
          jsonResponse.put("error", "Usuario o contraseña incorrecto");
          return ResponseEntity.status(HttpStatus.NOT_FOUND).body(jsonResponse);
       }
-      return ResponseEntity.ok(userAuthResponseDto);
+
+      String tokenJwt = jwtUtil.create(userResponseDto.get_id(),userResponseDto.getEmail());
+      UserAuthResponseDto userAuthResponseDto = userModelMapper.userDtoToAuthResponseDtoMapper(userResponseDto);
+
+      return ResponseEntity.status(HttpStatus.OK).header("Authorization", "Bearer "+tokenJwt).body(userAuthResponseDto);
    }
 
 }
